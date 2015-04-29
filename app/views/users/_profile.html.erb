@@ -1,0 +1,15 @@
+<!-- Profile Picture -->
+<div class="col-xs-6">
+	<%=  image_tag "default_profile.png", class: "img-profile img-responsive img-thumbnail" %>
+</div>
+<!-- User Details -->
+<div class="col-xs-6">
+	<h2 class="text-primary"><%= @user.first_name %><br><%= @user.last_name %></h2>
+
+	<h5 class="text-muted">Last logged in <%= time_ago_in_words(@user.updated_at) %> ago</h5>
+
+	<!-- Friend request -->
+	<% if !@self %>
+		<%= render 'friend' %>
+	<% end %>
+</div>

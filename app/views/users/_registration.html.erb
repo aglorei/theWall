@@ -1,0 +1,31 @@
+<form action="/users" method="post">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+	<div class="form-group">
+		<label for="first_name">First Name</label>
+		<span class="text-danger"><%= @user.errors[:first_name].join(', ') %></span>
+		<input class="form-control" type="text" name="user[first_name]" value="<%= @user[:first_name] %>">
+	</div>
+	<div class="form-group">
+		<label for="last_name">Last Name</label>
+		<span class="text-danger"><%= @user.errors[:last_name].join(', ') %></span>
+		<input class="form-control" type="text" name="user[last_name]" value="<%= @user[:last_name] %>">
+	</div>
+	<div class="form-group">
+		<label for="email">Email</label>
+		<span class="text-danger"><%= @user.errors[:email].join(', ') %></span>
+		<input class="form-control" type="email" name="user[email]" value="<%= @user[:email] %>">
+	</div>
+	<div class="form-group">
+		<label for="password">Password</label>
+		<span class="text-danger"><%= @user.errors[:password].join(', ') %></span>
+		<input class="form-control" type="password" name="user[password]">
+	</div>
+	<div class="form-group">
+		<label for="password_confirmation">Confirm Password</label>
+		<span class="text-danger"><%= @user.errors[:password_confirmation].join(', ') %></span>
+		<input class="form-control" type="password" name="user[password_confirmation]">
+	</div>
+
+	<input class="btn btn-default" type="submit" value="Create new user">
+</form>

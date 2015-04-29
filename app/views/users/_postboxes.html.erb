@@ -1,0 +1,56 @@
+<!-- Messages on empty -->
+<% if @posts.empty? %>
+	<% if @self %>
+		<h5 class="text-center text-muted">You don't have any posts yet.</h5>
+	<% elsif !@friendship %>
+		<h5 class="text-center text-muted"><%= @user.first_name %> doesn't have any posts yet. Send them a friend request and connect!</h5>
+	<% else %>
+		<h5 class="text-center text-muted"><%= @user.first_name %> doesn't have any posts yet. Write on their wall!</h5>
+	<% end %>
+<% end %>
+
+<!-- Posts -->
+<% @posts.each do |post| %>
+	<div class="post-box">
+		<%=  image_tag "default_profile.png", class: "img-responsive pull-left" %>
+
+		<a href="/users/<%= post.sender_id %>" class="h4 text-primary"><%= post.first_name + " " + post.last_name %></a><br>
+
+		<span class="h5 text-muted"><%= time_ago_in_words(post.created_at) %> ago</span>
+
+		<p><%= post.content %></p>
+
+		<div class="dropdown">
+			<a class="dropdown-toggle" id="commentMenu<%= post.id %>" data-toggle="dropdown" aria-expanded="true"><span class="badge"><%= post.comments.count(:id) %></span> Comments <span class="caret"></span></a>
+
+			<ul class="dropdown-menu" role="menu" aria-labelledby="commentMenu<%= post.id %>">
+				<!-- Comments -->
+				<% post.comments.each do |comment| %>
+					<li class="comment-box" role="presentation">
+						<%=  image_tag "default_profile.png", class: "img-responsive pull-left" %>
+
+						<span class="h5 text-muted"><a href="/users/<%= comment.commenter.id %>" class="text-primary"><%= comment.commenter.first_name + " " + comment.commenter.last_name %></a> <%= time_ago_in_words(comment.created_at) %> ago</span>
+
+						<p><%= comment.content %></p>
+					</li>
+
+					<li class="divider"></li>
+				<% end %>
+
+				<% if @self || @friendship %>
+					<li>
+						<form class="text-right" action="/comments" method="post">
+							<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+							<input type="hidden" name="comment[post_id]" value="<%= post.id %>">
+							<input type="hidden" name="comment[user_id]" value="<%= params[:id] %>">
+
+							<textarea class="form-control" name="comment[content]" rows="1" placeholder="Something to share?"></textarea>
+
+							<input class="btn btn-primary" type="submit" value="Comment">
+						</form>
+					</li>
+				<% end %>
+			</ul>
+		</div>
+	</div>
+<% end %>

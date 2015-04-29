@@ -1,0 +1,12 @@
+<form class="post-form" action="/posts" method="post">
+	<textarea class="form-control" name="post[content]" rows="1" placeholder="Something to share?"></textarea>
+	<% if flash[:errors] %>
+		<span class="text-danger"><%= flash[:errors].first %></span>
+	<% end %>
+
+	<div class="post-tools text-right">
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<input type="hidden" name="post[user_id]" value="<%= params[:id] %>">
+		<input class="btn btn-primary" type="submit" value="Post">
+	</div>
+</form>

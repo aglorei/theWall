@@ -1,0 +1,17 @@
+<!-- Friendship request status -->
+<% if @friendship %>
+	<button class="btn btn-default" aria-label="ok" disabled>
+		Friends <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+	</button>
+<% elsif @requested %>
+	<button class="btn btn-default" aria-label="refresh" disabled>
+		Request Pending <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+	</button>
+<% else %>
+	<form action="/notifications" method="post">
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<input type="hidden" name="notification[request]" value="friendships">
+		<input type="hidden" name="notification[user_id]" value="<%= params[:id] %>">
+		<input class="btn btn-primary" type="submit" value="Send friend request">
+	</form>
+<% end %>

@@ -1,0 +1,37 @@
+<div class="container">
+	<div class="row">
+		<!-- Profile Content -->
+		<div class="col-sm-6 profile-content">
+			<div class="row">
+				<%= render 'profile' %>
+			</div>
+			<!-- Notifications -->
+			<% if @self && !@notifications.empty? %>
+				<%= render 'notificationboxes' %>
+			<% end %>
+		</div>
+
+		<!-- Wall Content -->
+		<div class="col-sm-6 wall-content">
+			<h3 class="text-primary">Friends</h3>
+
+			<!-- Friend List -->
+			<div class="row">
+				<%= render 'friendboxes' %>
+			</div>
+
+			<% if flash[:notice] %>
+				<h3 class="text-primary"><%= flash[:notice] %></h3>
+			<% end %>
+
+
+
+			<!-- Posts -->
+			<% if @friendship || @self %>
+				<%= render 'post' %>
+			<% end %>
+
+			<%= render 'postboxes' %>
+		</div>
+	</div>
+</div>

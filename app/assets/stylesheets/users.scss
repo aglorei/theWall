@@ -1,0 +1,66 @@
+*{
+	/*outline: 1px dotted red;*/
+}
+body{
+	padding-top: 50px;
+}
+a{
+	text-decoration: none !important;
+}
+textarea{
+	margin-bottom: 10px !important;
+	resize: none;
+}
+ul.dropdown-menu{
+	padding: 15px;
+}
+.wall-content{
+	outline: 1px solid lightgray;
+	padding-top: 1px;
+}
+	.wall-content>*{
+		margin-bottom: 20px;
+	}
+	.wall-content button{
+		margin-bottom: 20px;
+	}
+.post-box img{
+	width: auto;
+	height: 40px;
+	margin-right: 5px;
+}
+.comment-box{
+	width: 80%;
+}
+	.comment-box img{
+		width: auto;
+		height: 20px;
+	}
+.friend-box{
+	outline: 1px solid lightgray;
+	padding: 10px 0;
+}
+	.friend-box img{
+		width: auto;
+		height: 100px;
+	}
+	.text-white{
+		color: white;
+	}
+.profile-content .row{
+	padding: 10px 0;
+}
+	.img-profile{
+		width: 100%;
+		height: auto;
+	}
+.notification-box{
+	outline: 1px solid lightgray;
+}
+	.notification-box img{
+		width: auto;
+		height: 80px;
+	}
+	.notification-box form{
+		display: inline;
+	}
