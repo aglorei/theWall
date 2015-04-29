@@ -2,7 +2,6 @@ class UsersController < ApplicationController
 	def index
 		if session[:id]
 			@current_user = current_user
-			@notifications =  notifications
 		end
 	end
 
@@ -25,14 +24,16 @@ class UsersController < ApplicationController
 	end
 
 	def show
-		@current_user = current_user
-		@notifications =  notifications
-		@user = User.find(params[:id])
-		@posts = @user.posts.select(:id, :content, :first_name, :last_name, :sender_id, :created_at).joins(:sender).includes(:comments)
-		@friends = Friendship.where(user: @user).order(id: :desc).select(:id, :first_name, :last_name, :friend_id).joins(:friend)
-		@friendship = @friends.collect{ |friend| friend.friend_id }.any?{ |id| id == session[:id] }
-		@requested = @notifications.collect{ |notification| notification.sender_id }.any?{ |id| id == params[:id].to_i } || @user.notifications.where(sender: @current_user).any?
-		@self = session[:id].eql?(params[:id].to_i)
+		if session[:id]
+			@current_user = current_user
+			@user = User.includes([{posts: :comments}, :friends]).find(params[:id])
+			@friends = @user.friends.order(id: :desc)
+			@friendship = @friends.collect{ |friend| friend.id }.any?{ |id| id == session[:id] }
+			@requested = @current_user.notifications.collect{ |notification| notification.sender.id }.any?{ |id| id == params[:id].to_i } || @user.notifications.where(sender: @current_user).any?
+			@self = session[:id].eql?(params[:id].to_i)
+		else
+			redirect_to new_user_path
+		end
 	end
 
 	def update
@@ -44,13 +45,6 @@ class UsersController < ApplicationController
 		end
 
 		def current_user
-			User.find(session[:id])
-		end
-
-		def notifications
-			current_user.notifications.select(:id, :content, :request, :sender_id, :first_name, :last_name).joins(:sender)
+			User.includes(notifications: [:sender]).find(session[:id])
 		end
 end
-
-# current_user.notifications.joins(:sender).select("notifications.content, notifications.request, notifications.created_at")
-

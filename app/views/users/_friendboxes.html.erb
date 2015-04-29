@@ -11,15 +11,15 @@
 <% @friends.first(6).each do |friend| %>
 	<div class="col-xs-4 friend-box text-center">
 		<%=  image_tag "default_profile.png", class: "img-responsive img-thumbnail" %><br>
-		<span class="h5"><a href="/users/<%= friend.friend_id %>" class="text-primary"><%= friend.first_name %></a></span><br>
-		<span class="h5"><a href="/users/<%= friend.friend_id %>" class="text-primary"><%= friend.last_name %></a></span>
+		<span class="h5"><a href="/users/<%= friend.id %>" class="text-primary"><%= friend.first_name %></a></span><br>
+		<span class="h5"><a href="/users/<%= friend.id %>" class="text-primary"><%= friend.last_name %></a></span>
 	</div>
 <% end %>
 
 <!-- Modal friend list (full) -->
 <% if @friends.count(:id) > 6 %>
 	<!-- Button trigger modal -->
-	<p class="text-center modal-toggle"><a href="#" data-toggle="modal" data-target="#myModal">See more friends...</a></p>
+	<p class="text-center modal-toggle"><a href="#" data-toggle="modal" data-target="#myModal">View all...</a></p>
 
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -28,7 +28,7 @@
 				<% @friends.each do |friend| %>
 					<div class="col-xs-4 friend-box text-center">
 						<%=  image_tag "default_profile.png", class: "img-responsive img-thumbnail" %><br>
-						<a class="text-white" href="/users/<%= friend.friend_id %>"><%= friend.first_name + " " + friend.last_name %></a>
+						<a class="text-white" href="/users/<%= friend.id %>"><%= friend.full_name %></a>
 					</div>
 				<% end %>
 			</div>

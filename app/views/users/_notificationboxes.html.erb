@@ -1,18 +1,18 @@
 <h3 class="text-primary">Notifications</h3>
-<% @notifications.each do |notification| %>
+<% @current_user.notifications.each do |notification| %>
 	<div class="notification-box">
 		<%=  image_tag "default_profile.png", class: "img-responsive img-thumbnail" %>
 
 		<% if notification.request == 'friendships' %>
 			<form action="/friendships" method="post">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-				<input type="hidden" name="friendship[user_id]" value="<%= notification.sender_id %>">
+				<input type="hidden" name="friendship[user_id]" value="<%= notification.sender.id %>">
 				<input class="btn btn-primary" type="submit" value="Accept">
 			</form>
 		<% end %>
 
 		<%= link_to 'Delete', notification, class: 'btn btn-default', method: :delete, data: { confirm: 'Are you sure?' } %>
 
-		<p><a class="text-primary" href="/users/<%= notification.sender_id %>"><%= notification.first_name + " " + notification.last_name %></a> <%= notification.content %></p>
+		<p><a class="text-primary" href="/users/<%= notification.sender.id %>"><%= notification.sender.first_name + " " + notification.sender.last_name %></a> <%= notification.content %></p>
 	</div>
 <% end %>

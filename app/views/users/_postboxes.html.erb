@@ -1,5 +1,5 @@
 <!-- Messages on empty -->
-<% if @posts.empty? %>
+<% if @user.posts.empty? %>
 	<% if @self %>
 		<h5 class="text-center text-muted">You don't have any posts yet.</h5>
 	<% elsif !@friendship %>
@@ -10,11 +10,11 @@
 <% end %>
 
 <!-- Posts -->
-<% @posts.each do |post| %>
+<% @user.posts.each do |post| %>
 	<div class="post-box">
 		<%=  image_tag "default_profile.png", class: "img-responsive pull-left" %>
 
-		<a href="/users/<%= post.sender_id %>" class="h4 text-primary"><%= post.first_name + " " + post.last_name %></a><br>
+		<a href="/users/<%= post.sender.id %>" class="h4 text-primary"><%= post.sender.full_name %></a><br>
 
 		<span class="h5 text-muted"><%= time_ago_in_words(post.created_at) %> ago</span>
 

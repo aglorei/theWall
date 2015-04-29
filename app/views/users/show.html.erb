@@ -6,7 +6,7 @@
 				<%= render 'profile' %>
 			</div>
 			<!-- Notifications -->
-			<% if @self && !@notifications.empty? %>
+			<% if @self && !@current_user.notifications.empty? %>
 				<%= render 'notificationboxes' %>
 			<% end %>
 		</div>
