@@ -11,9 +11,9 @@
 					<input type="hidden" name="friendship[user_id]" value="<%= notification.sender.id %>">
 					<input class="btn btn-primary form-control" type="submit" value="Accept">
 				</form>
-
-				<%= link_to 'Delete Request', notification, class: 'btn btn-default form-control', method: :delete, data: { confirm: 'Are you sure?' } %>
 			<% end %>
+
+			<%= link_to 'Delete', notification, class: 'btn btn-default', method: :delete, data: { confirm: 'Are you sure?' } %>
 		</li>
 
 		<li class="divider"></li>

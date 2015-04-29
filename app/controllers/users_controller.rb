@@ -39,6 +39,15 @@ class UsersController < ApplicationController
 	def update
 	end
 
+	def destroy
+	end
+
+	def about
+		if session[:id]
+			@current_user = current_user
+		end
+	end
+
 	private
 		def user_params
 			params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
